@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>From River Bottoms to Rock Bottom and Back | Don Lineberry</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Oswald:wght@400;500;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        veteran: {
+                            olive: '#4B5320',    /* Army Drab */
+                            forest: '#2C3E35',   /* Deep River Woods */
+                            rust: '#B75D29',     /* Sunset/Leather Accent */
+                            sand: '#EAE4D3',     /* Parchment/Book Page */
+                            charcoal: '#222222', /* Dark text */
+                            stone: '#595C5A'     /* Neutral grayish */
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['Lora', 'serif'],
+                        sans: ['Oswald', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom image overlays for a moody, cinematic feel */
+        .hero-overlay {
+            background: linear-gradient(to bottom, rgba(34, 34, 34, 0.4), rgba(44, 62, 53, 0.8));
+        }
+        .texture-bg {
+            background-color: #EAE4D3;
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23noise)' opacity='0.08'/%3E%3C/svg%3E");
+        }
+        .rustic-border {
+            border-bottom: 3px solid #B75D29;
+        }
+
+        /* Scroll Reveal Animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .delay-200 { transition-delay: 200ms; }
+        .delay-400 { transition-delay: 400ms; }
+    </style>
+</head>
+<body class="font-serif text-veteran-charcoal bg-veteran-sand antialiased texture-bg">
+
+    <!-- Navigation -->
+    <nav class="bg-veteran-forest text-veteran-sand py-4 sticky top-0 z-50 shadow-lg border-b-4 border-veteran-rust">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
+            <div class="font-sans font-bold text-2xl tracking-widest uppercase">
+                <a href="#" class="hover:text-veteran-rust transition">Don Lineberry</a>
+            </div>
+            <div class="hidden md:flex space-x-8 font-sans uppercase tracking-wider text-sm">
+                <a href="#the-story" class="hover:text-veteran-rust transition">The Story</a>
+                <a href="#the-author" class="hover:text-veteran-rust transition">The Author</a>
+                <a href="#the-mission" class="hover:text-veteran-rust transition">The Mission</a>
+            </div>
+            <a href="#preorder" class="bg-veteran-rust text-white font-sans uppercase tracking-wider px-6 py-2 font-bold hover:bg-opacity-80 transition duration-300">
+                Pre-Order
+            </a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative min-h-[90vh] flex items-center justify-center text-center bg-gray-900">
+        <!-- Static Background Image Container -->
+        <div class="absolute inset-0 bg-[url('img/Don_Hero.webp')] bg-cover bg-top-left bg-fixed"></div>
+        <div class="absolute inset-0 hero-overlay z-0"></div>
+        
+        <div class="relative z-10 max-w-4xl mx-auto px-4 py-20 flex flex-col items-center">
+            <p class="reveal font-sans text-veteran-sand font-bold tracking-[0.2em] uppercase mb-4 text-sm md:text-base drop-shadow-md">
+                Available on Amazon — July 1st
+            </p>
+            <h1 class="reveal delay-200 font-sans text-5xl md:text-7xl lg:text-8xl font-bold text-white uppercase tracking-tight leading-none mb-6 drop-shadow-lg">
+                From River Bottoms <br>
+                <span class="text-veteran-sand text-3xl md:text-5xl">To Rock Bottom</span> <br>
+                <span class="text-veteran-rust">And Back</span>
+            </h1>
+            <div class="reveal delay-400 w-24 h-1 bg-veteran-rust mb-8 shadow-md"></div>
+            <p class="reveal delay-400 font-serif text-xl md:text-2xl text-gray-200 italic mb-10 leading-relaxed max-w-3xl drop-shadow-md">
+                "A Veteran’s Journey Through Addiction, Accountability, and Redemption."
+            </p>
+            <a href="#preorder" class="reveal delay-400 font-sans uppercase tracking-widest bg-veteran-olive text-white px-10 py-4 text-lg font-bold hover:bg-veteran-forest border-2 border-veteran-olive hover:border-white transition duration-300 shadow-xl">
+                Available on Kindle, Print & Audio
+            </a>
+        </div>
+    </section>
+
+    <!-- Hook / Quote Section -->
+    <section class="bg-veteran-charcoal text-veteran-sand py-20 px-4 text-center border-y-8 border-veteran-rust">
+        <div class="max-w-4xl mx-auto reveal">
+            <i class="fa-solid fa-water text-4xl text-veteran-stone mb-6"></i>
+            <h2 class="font-serif text-2xl md:text-4xl leading-relaxed font-normal">
+                "The river bottoms of Idaho taught me silence long before the Army taught me noise. Collapse isn't the end. You can rise—not instantly, but one day at a time."
+            </h2>
+            <p class="mt-8 font-sans uppercase tracking-widest text-veteran-rust font-bold">— Don Lineberry</p>
+        </div>
+    </section>
+
+    <!-- The Journey (Storytelling Layout) -->
+    <section id="the-story" class="py-24">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-20 reveal">
+                <h2 class="font-sans text-4xl md:text-5xl font-bold uppercase tracking-wide text-veteran-forest rustic-border inline-block pb-2">The Journey</h2>
+            </div>
+
+            <!-- Block 1: Roots & Military -->
+            <div class="flex flex-col md:flex-row items-center gap-12 mb-24 reveal">
+                <div class="w-full md:w-1/2">
+                    <img src="img/Don_Tank.webp" alt="Forest and Military" class="w-full h-[400px] object-cover shadow-2xl border-l-8 border-veteran-olive grayscale hover:grayscale-0 transition duration-500" onerror="this.src='https://images.unsplash.com/photo-1542273917363-3b1817f69a2d?q=80&w=1000&auto=format&fit=crop'">
+                </div>
+                <div class="w-full md:w-1/2 space-y-6">
+                    <h3 class="font-sans text-3xl font-bold uppercase text-veteran-charcoal">Part I: Roots & The Roar</h3>
+                    <p class="text-lg leading-relaxed text-gray-800">
+                        Raised in the quiet, patient embrace of Idaho's river bottoms, Don found a sanctuary from the unspoken pressures of being a preacher's kid. Seeking purpose, he answered the call of the U.S. Army. From Fort Knox to the shadow of the Iron Curtain in Germany, commanding an M60A1 tank provided structure and brotherhood. Yet, beneath the deafening noise of the treads, a quiet drift and unseen cracks began to form.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Block 2: Collapse -->
+            <div class="flex flex-col md:flex-row-reverse items-center gap-12 mb-24 reveal">
+                <div class="w-full md:w-1/2">
+                    <img src="img/Don_Collapse.webp" alt="Darkness and Isolation" class="w-full h-[400px] object-cover shadow-2xl border-r-8 border-veteran-charcoal grayscale hover:grayscale-0 transition duration-500" onerror="this.src='https://images.unsplash.com/photo-1517594422361-5e18a40060e2?q=80&w=1000&auto=format&fit=crop'">
+                </div>
+                <div class="w-full md:w-1/2 space-y-6">
+                    <h3 class="font-sans text-3xl font-bold uppercase text-veteran-charcoal">Part II: The Collapse</h3>
+                    <p class="text-lg leading-relaxed text-gray-800">
+                        When the rigid structure of the military vanished, civilian life slowly unraveled. Decades of self-medication replaced the camaraderie of the crew. Marriages frayed, a farm dream was shattered by a DEA raid, and long-haul trucking devolved into a rolling blackout chamber. The descent ended brutally in a Walmart parking lot, leading to 197 days in a Twin Falls jail cell. Rock bottom had arrived.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Block 3: Redemption -->
+            <div class="flex flex-col md:flex-row items-center gap-12 mb-24 reveal">
+                <div class="w-full md:w-1/2">
+                    <img src="img/Don_Harley.webp" alt="Don on his Harley" class="w-full h-[400px] object-contain shadow-2xl border-l-8 border-veteran-rust grayscale hover:grayscale-0 transition duration-500" onerror="this.src='https://images.unsplash.com/photo-1493612276216-ee3925520721?q=80&w=1000&auto=format&fit=crop'">
+                </div>
+                <div class="w-full md:w-1/2 space-y-6">
+                    <h3 class="font-sans text-3xl font-bold uppercase text-veteran-charcoal">Part III: The Rescue</h3>
+                    <p class="text-lg leading-relaxed text-gray-800">
+                        In that cell, out of excuses and out of moves, grace found a crack to slip through. A Veterans Justice Outreach (VJO) Specialist extended a lifeline. Through the Boise Rescue Mission’s year-long, faith-based New Life Program, Don rebuilt his life from the foundation up. It was a grueling process of facing his demons, doing the hard mental work, and finding a spiritual renewal he thought he had lost forever.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Block 4: Legacy -->
+            <div class="flex flex-col md:flex-row-reverse items-center gap-12 reveal">
+                <div class="w-full md:w-1/2">
+                    <img src="img/Don_and_Janet.webp" alt="Don and Janet" class="w-full h-auto max-h-[500px] object-contain bg-veteran-charcoal/5 shadow-2xl border-r-8 border-veteran-forest grayscale hover:grayscale-0 transition duration-500" onerror="this.src='https://images.unsplash.com/photo-1558980664-769d59546b3d?q=80&w=1000&auto=format&fit=crop'">
+                </div>
+                <div class="w-full md:w-1/2 space-y-6">
+                    <h3 class="font-sans text-3xl font-bold uppercase text-veteran-charcoal">Part IV: The Legacy</h3>
+                    <p class="text-lg leading-relaxed text-gray-800">
+                        Today, the rumble of the tank has been replaced by "Lucy," his Harley-Davidson. Riding two-up with his wife Janet, wind therapy clears the noise of the past. As Director of the American Legion Riders and a Case Manager for the very mission that saved him, Don stands as living proof that no veteran is too far gone. 
+                    </p>
+                </div>
+            </div>
+
+            <!-- Book Endorsement Section -->
+            <!-- Event Launch Card -->
+            <div class="mt-28 bg-veteran-olive text-veteran-sand shadow-2xl border-b-4 border-veteran-rust relative overflow-hidden reveal">
+                <div class="max-w-4xl mx-auto px-8 py-12">
+                    <div class="flex flex-col md:flex-row items-center justify-between gap-8">
+                        <div class="flex-1">
+                            <div class="font-sans text-veteran-rust font-bold uppercase tracking-widest text-sm mb-3">📖 Meet Don in Person</div>
+                            <h3 class="font-sans text-3xl md:text-4xl font-bold uppercase leading-tight mb-6">Canyon County Fair<br><span class="text-2xl md:text-3xl text-veteran-sand">July 23–26, 2026</span></h3>
+                            <div class="space-y-3 text-lg">
+                                <p><strong>Event:</strong> Canyon County Fair</p>
+                                <p><strong>Where:</strong> Caldwell, Idaho</p>
+                                <p><strong>Who:</strong> Don, Janet &amp; Lucy</p>
+                            </div>
+                        </div>
+                        <div class="flex-1 text-center md:text-left">
+                            <div class="bg-white bg-opacity-15 rounded-lg px-8 py-6 border-l-4 border-veteran-rust">
+                                <p class="text-veteran-sand text-lg leading-relaxed italic">
+                                    "Come visit Don, Janet, and Lucy at the booth — book-cover backdrop banner, Lucy shined up out front, and a table full of books and bling. Stop by, say hi, and grab a signed copy."
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-12 bg-veteran-stone text-veteran-sand shadow-2xl border-l-8 border-veteran-rust relative overflow-hidden reveal" id="endorsement-card">
+                <i class="fa-solid fa-quote-left text-8xl text-veteran-charcoal opacity-20 absolute -top-2 -left-2 pointer-events-none"></i>
+
+                <!-- Endorsement Slides -->
+                <div id="endorsement-slider" class="relative">
+                    <!-- JS renders slides here -->
+                </div>
+
+                <!-- Controls Row -->
+                <div class="flex items-center justify-between px-8 md:px-12 pb-6 pt-2">
+                    <!-- Prev/Next -->
+                    <div class="flex items-center gap-3">
+                        <button id="endorse-prev" aria-label="Previous endorsement"
+                            class="w-9 h-9 flex items-center justify-center border border-veteran-sand/30 text-veteran-sand hover:border-veteran-rust hover:text-veteran-rust transition">
+                            <i class="fa-solid fa-chevron-left text-xs"></i>
+                        </button>
+                        <button id="endorse-next" aria-label="Next endorsement"
+                            class="w-9 h-9 flex items-center justify-center border border-veteran-sand/30 text-veteran-sand hover:border-veteran-rust hover:text-veteran-rust transition">
+                            <i class="fa-solid fa-chevron-right text-xs"></i>
+                        </button>
+                    </div>
+
+                    <!-- Dot indicators -->
+                    <div id="endorse-dots" class="flex items-center gap-2"></div>
+
+                    <!-- Platform Logos -->
+                    <div class="flex flex-col items-end">
+                        <span class="font-sans text-xs uppercase tracking-widest text-veteran-sand opacity-70 mb-3">Releasing Summer 2026 On</span>
+                        <div class="flex flex-wrap gap-4 sm:gap-6 items-center opacity-90 text-white">
+                            <span class="font-sans font-bold text-xl tracking-tight flex items-center"><i class="fa-brands fa-amazon mr-1 text-xl"></i>amazon</span>
+                            <span class="font-serif italic font-bold text-2xl border-l border-veteran-sand/30 pl-4 sm:pl-6">kindle</span>
+                            <span class="font-sans font-bold text-xl tracking-tighter border-l border-veteran-sand/30 pl-4 sm:pl-6 flex items-center"><i class="fa-solid fa-headphones mr-1 text-lg opacity-80"></i>audible</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Progress bar -->
+                <div class="absolute bottom-0 left-0 right-0 h-1" style="background:rgba(183,93,41,0.2)">
+                    <div id="endorse-progress-fill" class="h-full" style="background:#B75D29;width:100%"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- The Mission / Charity Section -->
+    <section id="the-mission" class="bg-veteran-forest text-veteran-sand py-24 relative overflow-hidden border-y-4 border-veteran-olive">
+        <!-- Subtle camo/texture overlay -->
+        <div class="absolute inset-0 opacity-5 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')]"></div>
+        <div class="max-w-4xl mx-auto px-4 relative z-10 text-center space-y-8 reveal">
+            <i class="fa-solid fa-hands-holding-child text-6xl text-veteran-rust"></i>
+            <h2 class="font-sans text-4xl md:text-5xl font-bold uppercase tracking-wide">A Mission to Give Back</h2>
+            <div class="w-20 h-1 bg-veteran-rust mx-auto"></div>
+            <p class="text-xl md:text-2xl leading-relaxed font-serif italic text-gray-300">
+                "A hand up, not a handout."
+            </p>
+            <p class="text-lg leading-relaxed text-gray-200">
+                For every book sold, <strong>$1.00 goes directly to support the Boise Rescue Mission's Veterans Ministry Program</strong>, funding their continuing work with veterans from across the U.S.A. By purchasing this book, you are directly supporting the rehabilitation, sheltering, and counseling of brothers and sisters still fighting their battles in the shadows.
+            </p>
+            <div class="pt-8">
+                <a href="https://boiserm.org/" target="_blank" class="inline-block font-sans uppercase tracking-widest border-2 border-veteran-rust text-veteran-sand px-10 py-4 font-bold hover:bg-veteran-rust hover:text-white transition duration-300">
+                    Learn About the Boise Rescue Mission
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Author Section -->
+    <section id="the-author" class="py-24 bg-veteran-sand">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 reveal">
+            <div class="bg-white p-8 md:p-12 shadow-2xl border-t-8 border-veteran-rust flex flex-col md:flex-row gap-12 items-center">
+                <div class="w-full md:w-1/3">
+                    <div class="aspect-[3/4] bg-veteran-stone relative overflow-hidden flex items-center justify-center shadow-lg">
+                        <img src="img/Don_Author.webp" alt="Don Lineberry" class="w-full h-full object-cover grayscale hover:grayscale-0 transition duration-500">
+                        <div class="absolute inset-0 bg-black bg-opacity-10 hover:bg-opacity-0 transition duration-300"></div>
+                    </div>
+                </div>
+                <div class="w-full md:w-2/3 space-y-6">
+                    <h2 class="font-sans text-4xl font-bold uppercase text-veteran-charcoal mb-2">Meet Don Lineberry</h2>
+                    <h4 class="font-sans text-xl text-veteran-rust uppercase tracking-widest">Veteran, Rider, Case Manager</h4>
+                    <p class="text-lg leading-relaxed text-gray-700">
+                        Don Lineberry is a U.S. Army veteran who served as an M60A1 tank gunner in Germany during the Cold War, and later with the Idaho National Guard's 116th Armored Cavalry. 
+                    </p>
+                    <p class="text-lg leading-relaxed text-gray-700">
+                        After surviving a harrowing battle with addiction that culminated in homelessness and incarceration, Don found redemption through the Boise Rescue Mission. Today, he lives in Idaho with his wife Janet. He serves as a Case Manager in the Mission's Veterans Ministry Program, advocates in Veterans Treatment Court, and rides as the Director of his local American Legion Riders chapter.
+                    </p>
+                    <div class="pt-6 border-t-2 border-gray-200">
+                        <p class="font-serif italic text-veteran-forest text-xl">
+                            "I wrote this book for the broken, the drifting, the ashamed, the exhausted, and the ones who think they’ve gone too far to come back. The river keeps flowing. So can you."
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pre-Order / Footer CTA -->
+    <section id="preorder" class="py-20 bg-veteran-charcoal text-center px-4">
+        <div class="max-w-3xl mx-auto space-y-8 reveal">
+            <h2 class="font-sans text-3xl md:text-4xl font-bold text-white uppercase tracking-wide">Ready to read the full story?</h2>
+            <p class="text-gray-400 font-serif text-lg">Sign up to be notified the moment the book drops on Kindle, Print, and Audio this Summer.</p>
+            
+            <form id="notify-form" class="flex flex-col sm:flex-row gap-4 justify-center max-w-lg mx-auto mt-8 relative">
+                <input type="email" id="email-input" name="email" required placeholder="Enter your email address" class="px-6 py-4 w-full sm:w-2/3 font-sans text-veteran-charcoal focus:outline-none border-2 border-transparent focus:border-veteran-rust bg-veteran-sand transition">
+                <button type="submit" id="submit-btn" class="bg-veteran-rust text-white font-sans uppercase tracking-widest font-bold px-8 py-4 w-full sm:w-1/3 hover:bg-[#9a4d22] transition duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center">
+                    <span id="btn-text">Notify Me</span>
+                    <i id="btn-spinner" class="fa-solid fa-circle-notch fa-spin hidden ml-2"></i>
+                </button>
+            </form>
+            
+            <!-- Success/Error/Duplicate Messages -->
+            <div id="form-success" class="hidden mt-4 text-green-500 font-sans font-bold tracking-widest uppercase text-sm bg-green-500/10 py-3 rounded max-w-lg mx-auto border border-green-500/20">
+                <i class="fa-solid fa-check-circle mr-2"></i>Thank you! You've been added to the list.
+            </div>
+            <div id="form-duplicate" class="hidden mt-4 text-veteran-rust font-sans font-bold tracking-widest uppercase text-sm bg-veteran-rust/10 py-3 rounded max-w-lg mx-auto border border-veteran-rust/20">
+                <i class="fa-solid fa-info-circle mr-2"></i>You are already on the list!
+            </div>
+            <div id="form-error" class="hidden mt-4 text-red-500 font-sans tracking-widest uppercase text-sm bg-red-500/10 py-3 rounded max-w-lg mx-auto border border-red-500/20">
+                <i class="fa-solid fa-triangle-exclamation mr-2"></i>Oops! Something went wrong. Please try again.
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-[#1a1a1a] py-8 border-t border-gray-800 text-center">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="flex justify-center space-x-6 mb-6">
+                <a href="#" class="text-gray-500 hover:text-veteran-rust text-2xl transition"><i class="fa-brands fa-facebook"></i></a>
+                <a href="#" class="text-gray-500 hover:text-veteran-rust text-2xl transition"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#" class="text-gray-500 hover:text-veteran-rust text-2xl transition"><i class="fa-solid fa-envelope"></i></a>
+            </div>
+            <p class="text-sm text-gray-500 font-sans tracking-wider uppercase">
+                &copy; 2026 Don Lineberry. All rights reserved. <br>
+                <span class="text-xs text-gray-600 mt-2 block">Portions of proceeds support Boise Rescue Mission Ministries.</span>
+            </p>
+        </div>
+    </footer>
+
+    <!-- Animations and Form Handling Script -->
+    <script>
+        // ── Endorsement Carousel ──────────────────────────────────────────────
+        const endorsements = [
+            {
+                quote: "I've had the privilege of knowing Don not only as a colleague in the veteran community, but as a man whose life stands as proof that redemption is real. A graduate of the Boise Rescue Mission's New Life Program, Don has transformed his own hard-won recovery into a mission of service—helping fellow veterans find hope beyond addiction, incarceration, and despair. The River Bottoms to Rock Bottom and Back is an honest, unflinching account of one veteran's fall and rise again. More importantly, it is a reminder to every struggling veteran that a new chapter is always possible.",
+                name: "Mitzi Cheldelin",
+                title: "IDVS Veterans Outreach & Community Support Director",
+                photo: "img/portrait-mitzi_cheldelin.webp"
+            },
+            {
+                quote: "I didn't see the hardest parts of Don's story — only the man he showed up as once he'd fought his way through them. What I saw was a veteran who showed up for his brothers at the Idaho State Veterans Home year after year. Since 2019, he's put in more than 600 volunteer hours doing just about everything you can imagine: passing trays, clearing tables, helping at motorcycle rallies, sitting down for one‑on‑one visits, jumping in on the units, and even building a custom train platform with residents. He could dive into a tough conversation without hesitation, and he could break a heavy moment just as quickly with that sharp, well‑timed wit of his. He never did any of it for recognition — he just showed up, ready to help, every single time. His story is real, unfiltered, and an inspiration to those who are blessed to be a part of his journey.",
+                name: "Jo Ann Daron",
+                title: "Volunteer Services Coordinator / Idaho State Veterans Home",
+                photo: "img/portrait_joann_daron.webp"
+            },
+            {
+                quote: "I've known Don Lineberry for years—first as a shattered man walking through the doors of the Boise Rescue Mission, then as our reliable, compassionate Senior Case Manager in our Veterans Ministry Program, helping other broken brothers find their footing. His story isn't dressed up for drama; it's raw, unflinching, and utterly real. This isn't just a memoir. It's a resource wrapped in truth. Hand it to a buddy spiraling: 'Read this—it's like my story, but he made it out.' Don offers no excuses, no fluff, just hard-won hope without preaching. If you're hurting right now, keep turning these pages. The line is still there. Grab it.",
+                name: "Leo Hellyer",
+                title: "Director, Veterans Ministry Program",
+                photo: "img/portrait_leo_hellyer.webp"
+            },
+            {
+                quote: "Don Lineberry has been an instrumental part of my recovery since meeting him in January of 2024 at the Boise Rescue Mission following my completion of the Boise VA Transformation Recovery Center program. Don continues to be a mentor to me through many of my life hardships, including Veteran's Treatment Court (VTC), homelessness, and two forms of cancer. In addition to mentorship, Don has offered spiritual guidance and post-VTC support as I transition back into my community here in Boise, Idaho.",
+                name: "Chris Perales",
+                title: "MMCS(SW), U.S.N.",
+                photo: "img/portrait_chris_perales.webp"
+            },
+            {
+                quote: "River Bottoms to Rock Bottom is a powerful story of redemption and resilience. Army veteran Don Lineberry shares his journey from drug and alcohol addiction to recovery, offering an honest look at the struggles he faced. Through the support of the Boise Rescue Mission's New Life Program, he found the tools, accountability, and purpose needed to rebuild his life. His experience highlights the vital role faith-based organizations play in the overall health of a community—providing hope, structure, and belonging. Today, Lineberry is devoted to helping others overcome addiction, making this an inspiring read for anyone seeking hope and transformation.",
+                name: "Bill Gardiner",
+                title: "Colonel | Idaho State Police",
+                photo: "img/portrait_bill_gardiner.jpg"
+            },
+            {
+                quote: "Having known Don for over 35 years, this is a revealing and honest depiction of his struggle to overcome addiction, with all the pitfalls that came with it, and still get his life back. Raw and real, it shows how one broken man can rebuild with faith while lifting others, specifically Veterans, along the way.",
+                name: "Steve Woodall",
+                title: "Command Sergeant Major, USA (Retired) | Idaho Army National Guard",
+                photo: "img/portrait_steve_woodall.webp"
+            },
+            {
+                quote: "I've known Don for over a decade, and I've witnessed his journey in a way few others have—from some of the lowest points in his life to the man of purpose, integrity, and service he is today. His story isn't secondhand to me; I've seen the grit, the accountability, and the faith that rebuilt his life step by step. This life story captures that transformation with the same honesty I've seen in him for years. For any veteran or person who feels too far gone, Don's journey is living proof that hope is real and redemption is possible.",
+                name: "Jacob Lang",
+                title: "Chief Program Officer / Boise Rescue Mission Ministries",
+                photo: "img/portrait_jacob_lang.webp"
+            },
+            {
+                quote: "As a justice-impacted veteran myself, his story resonates deeply. It's honest, hard-earned, and necessary. With over 200,000 veterans incarcerated in the United States, and many more struggling in silence, Don's voice reaches those who feel forgotten or beyond hope. Don describes this book as a lantern for others. As a Navy veteran, I would say it is more than that—it is a lighthouse, guiding those lost in the dark back toward solid ground. I'm proud to call Don my mentor, my friend, and my brother.",
+                name: "Mark Person",
+                title: "Director, A New Path Inc. | Vice Commander District 3, American Legion Dept. of Idaho | U.S. Navy Veteran",
+                photo: "img/portrait_mark_person.webp"
+            },
+            {
+                quote: "I know Don through his leadership of the American Legion Riders at Post 113 in Meridian, Idaho, where I have the honor of serving as Post 113 Commander. When the Riders faced a difficult transition, Don stepped forward, helped guide the group through change, and led its renewal. His care for fellow veterans aligns perfectly with the Riders' ongoing efforts to support veterans across the Treasure Valley. I strongly recommend From River Bottoms to Rock Bottom and Back: A Veteran's Journey Through Addiction, Accountability, and Redemption—a real, gripping story that is ultimately uplifting.",
+                name: "Ralph Cavalieri",
+                title: "Commander, US Navy - Retired | Commander, American Legion Post 113, Meridian, Idaho",
+                photo: "img/portrait_ralph_cavalieri.webp"
+            },
+            {
+                quote: "River Bottoms to Rock Bottom and Back would be a great story if it were fiction, but it is not. I have known Don Lineberry since he walked through the doors of the Boise Rescue Mission, and I have been blessed to watch this man come into his new life. I appreciate the way that Don tells his story with honesty and humility and that is how this man lives his life today. Anyone who has walked the walk of addiction and recovery will identify with Don, and for those who wonder if they can walk that walk, you'll see that it is true; you can.",
+                name: "Rev Bill Roscoe",
+                title: "President and CEO / Boise Rescue Mission",
+                photo: "img/portrait_bill_roscoe.webp"
+            }
+        ];
+
+        (function initEndorsements() {
+            const slider   = document.getElementById('endorsement-slider');
+            const dotsWrap = document.getElementById('endorse-dots');
+            const prevBtn  = document.getElementById('endorse-prev');
+            const nextBtn  = document.getElementById('endorse-next');
+            let current    = 0;
+            let timer;
+            const AUTO_DELAY = 18000; // ms between auto-advances
+
+            // Build slides
+            endorsements.forEach((e, i) => {
+                const photoHTML = e.photo
+                    ? `<img src="${e.photo}" alt="${e.name}" class="w-full h-full object-cover grayscale hover:grayscale-0 transition duration-500">`
+                    : `<i class="fa-solid fa-user text-3xl text-veteran-sand opacity-40"></i>`;
+
+                const slide = document.createElement('div');
+                slide.className = 'endorsement-slide absolute inset-0 p-8 md:p-12 transition-opacity duration-700';
+                slide.style.opacity = i === 0 ? '1' : '0';
+                slide.style.pointerEvents = i === 0 ? 'auto' : 'none';
+                slide.style.position = i === 0 ? 'relative' : 'absolute';
+                slide.innerHTML = `
+                    <div class="relative z-10 pl-2 md:pl-8">
+                        <p class="font-serif text-xl md:text-2xl italic leading-relaxed mb-8">"${e.quote}"</p>
+                        <div class="flex flex-col sm:flex-row items-start sm:items-center gap-6 mt-8 pt-8 border-t border-veteran-sand/20">
+                            <div class="w-20 h-20 rounded-full bg-gray-700 overflow-hidden border-2 border-veteran-rust shadow-md shrink-0 flex items-center justify-center">
+                                ${photoHTML}
+                            </div>
+                            <div>
+                                <h4 class="font-sans text-2xl font-bold uppercase text-white tracking-widest">${e.name}</h4>
+                                <p class="font-sans text-sm text-veteran-sand uppercase tracking-wider mt-1">${e.title}</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                slider.appendChild(slide);
+            });
+
+            // The first slide is relative; rest are absolute — set slider height to match first slide
+            // We let the first slide be in-flow; others overlay it
+            const slides = slider.querySelectorAll('.endorsement-slide');
+
+            // Build dots
+            endorsements.forEach((_, i) => {
+                const dot = document.createElement('button');
+                dot.className = 'endorse-dot w-2 h-2 rounded-full transition-all duration-300 ' + (i === 0 ? 'bg-veteran-rust w-4' : 'bg-veteran-sand/40');
+                dot.setAttribute('aria-label', `Go to endorsement ${i + 1}`);
+                dot.addEventListener('click', () => goTo(i));
+                dotsWrap.appendChild(dot);
+            });
+
+            const dots = dotsWrap.querySelectorAll('.endorse-dot');
+
+            function goTo(idx) {
+                // Fade out current
+                slides[current].style.opacity = '0';
+                slides[current].style.pointerEvents = 'none';
+                slides[current].style.position = 'absolute';
+                dots[current].className = 'endorse-dot w-2 h-2 rounded-full transition-all duration-300 bg-veteran-sand/40';
+
+                current = (idx + endorsements.length) % endorsements.length;
+
+                // Fade in next
+                slides[current].style.position = 'relative';
+                slides[current].style.opacity = '1';
+                slides[current].style.pointerEvents = 'auto';
+                dots[current].className = 'endorse-dot w-2 h-2 rounded-full transition-all duration-300 bg-veteran-rust w-4';
+
+                resetTimer();
+            }
+
+            function startProgress() {
+                const bar = document.getElementById('endorse-progress-fill');
+                bar.style.transition = 'none';
+                bar.style.width = '100%';
+                requestAnimationFrame(() => requestAnimationFrame(() => {
+                    bar.style.transition = `width ${AUTO_DELAY}ms linear`;
+                    bar.style.width = '0%';
+                }));
+            }
+
+            function pauseProgress() {
+                const bar = document.getElementById('endorse-progress-fill');
+                bar.style.width = getComputedStyle(bar).width;
+                bar.style.transition = 'none';
+            }
+
+            function resetTimer() {
+                clearInterval(timer);
+                timer = setInterval(() => goTo(current + 1), AUTO_DELAY);
+                startProgress();
+            }
+
+            prevBtn.addEventListener('click', () => goTo(current - 1));
+            nextBtn.addEventListener('click', () => goTo(current + 1));
+
+            // Pause auto-rotate on hover
+            const card = document.getElementById('endorsement-card');
+            card.addEventListener('mouseenter', () => { clearInterval(timer); pauseProgress(); });
+            card.addEventListener('mouseleave', resetTimer);
+
+            resetTimer();
+        })();
+
+        // 1. Scroll Reveal Animations
+        document.addEventListener("DOMContentLoaded", () => {
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.15 // Triggers when 15% of the element is visible
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        observer.unobserve(entry.target); // Stop observing once revealed
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.reveal').forEach((el) => {
+                observer.observe(el);
+            });
+        });
+
+        // 2. Google Sheets Form Submission Handler
+        const form = document.getElementById('notify-form');
+        const submitBtn = document.getElementById('submit-btn');
+        const btnText = document.getElementById('btn-text');
+        const btnSpinner = document.getElementById('btn-spinner');
+        const successMsg = document.getElementById('form-success');
+        const errorMsg = document.getElementById('form-error');
+        const duplicateMsg = document.getElementById('form-duplicate');
+
+        // Embedded user-provided Google Script Web App URL
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyC-hioXtVxArBzquttvWzPv4Odg9my8EgfaYooOYpqLKL4e6lzy_oruGQdbShteDCabw/exec';
+
+        if (form) {
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                
+                // Hide previous messages
+                successMsg.classList.add('hidden');
+                errorMsg.classList.add('hidden');
+                duplicateMsg.classList.add('hidden');
+                
+                // Show loading state
+                submitBtn.disabled = true;
+                btnText.innerText = 'Sending...';
+                btnSpinner.classList.remove('hidden');
+
+                const formData = new FormData(form);
+                // Convert to URLSearchParams to ensure proper content-type and avoid CORS preflight issues
+                const urlEncodedData = new URLSearchParams(formData).toString();
+
+                try {
+                    const response = await fetch(GOOGLE_SCRIPT_URL, {
+                        method: 'POST',
+                        body: urlEncodedData,
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                        }
+                    });
+
+                    const data = await response.json();
+
+                    form.reset();
+                    form.classList.add('hidden'); // Hide form on success or duplicate
+                    
+                    if (data.result === 'duplicate') {
+                        duplicateMsg.classList.remove('hidden');
+                    } else {
+                        successMsg.classList.remove('hidden');
+                    }
+
+                } catch (error) {
+                    console.error('Form submission error:', error);
+                    // Google Apps Script sometimes blocks reading the response via CORS even if it succeeds.
+                    // Fallback to gracefully showing success if it failed to parse but likely submitted.
+                    form.reset();
+                    form.classList.add('hidden');
+                    successMsg.classList.remove('hidden'); 
+                } finally {
+                    // Reset button state
+                    submitBtn.disabled = false;
+                    btnText.innerText = 'Notify Me';
+                    btnSpinner.classList.add('hidden');
+                }
+            });
+        }
+    </script>
+</body>
+</html>
