@@ -215,12 +215,13 @@
 
                     <!-- Platform Logos -->
                     <div class="flex flex-col items-end">
-                        <span class="font-sans text-xs uppercase tracking-widest text-veteran-sand opacity-70 mb-3">Releasing Summer 2026 On</span>
+                        <span class="font-sans text-xs uppercase tracking-widest text-veteran-sand opacity-70 mb-3">Now Available On</span>
                         <div class="flex flex-wrap gap-4 sm:gap-6 items-center opacity-90 text-white">
-                            <span class="font-sans font-bold text-xl tracking-tight flex items-center"><i class="fa-brands fa-amazon mr-1 text-xl"></i>amazon</span>
-                            <span class="font-serif italic font-bold text-2xl border-l border-veteran-sand/30 pl-4 sm:pl-6">kindle</span>
-                            <span class="font-sans font-bold text-xl tracking-tighter border-l border-veteran-sand/30 pl-4 sm:pl-6 flex items-center"><i class="fa-solid fa-headphones mr-1 text-lg opacity-80"></i>audible</span>
+                            <a href="https://share.riverbottomsbook.com/paperback" target="_blank" rel="noopener" class="font-sans font-bold text-xl tracking-tight flex items-center hover:text-veteran-rust transition"><i class="fa-brands fa-amazon mr-1 text-xl"></i>amazon</a>
+                            <a href="https://share.riverbottomsbook.com/kindle" target="_blank" rel="noopener" class="font-serif italic font-bold text-2xl border-l border-veteran-sand/30 pl-4 sm:pl-6 hover:text-veteran-rust transition">kindle</a>
+                            <button type="button" id="audible-soon" class="font-sans font-bold text-xl tracking-tighter border-l border-veteran-sand/30 pl-4 sm:pl-6 flex items-center hover:text-veteran-rust transition cursor-pointer" title="Audible edition coming soon"><i class="fa-solid fa-headphones mr-1 text-lg opacity-80"></i>audible</button>
                         </div>
+                        <span id="audible-soon-msg" class="hidden font-sans text-xs uppercase tracking-widest text-veteran-rust mt-3" aria-live="polite">Audible edition coming soon</span>
                     </div>
                 </div>
 
@@ -559,6 +560,15 @@
                 // Close after tapping any in-page link
                 mobileMenu.querySelectorAll('a').forEach((link) => {
                     link.addEventListener('click', closeMenu);
+                });
+            }
+
+            // Audible "coming soon" reveal
+            const audibleBtn = document.getElementById('audible-soon');
+            const audibleMsg = document.getElementById('audible-soon-msg');
+            if (audibleBtn && audibleMsg) {
+                audibleBtn.addEventListener('click', () => {
+                    audibleMsg.classList.remove('hidden');
                 });
             }
         });
