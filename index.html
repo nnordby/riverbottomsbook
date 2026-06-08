@@ -589,5 +589,91 @@
             });
         }
     </script>
+
+    <!-- ============ Feedback widget (discreet; files a GitHub Issue via feedback.php) ============ -->
+    <button id="rb-fb-open" type="button"
+        class="fixed bottom-4 right-4 z-40 flex items-center gap-2 bg-veteran-forest/80 hover:bg-veteran-rust text-white font-sans uppercase tracking-widest text-xs px-4 py-2 rounded-full shadow-lg opacity-70 hover:opacity-100 transition duration-300"
+        aria-label="Send feedback">
+        <i class="fa-regular fa-comment-dots"></i><span>Feedback</span>
+    </button>
+
+    <div id="rb-fb-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/60 p-4">
+        <div class="bg-veteran-sand texture-bg w-full max-w-md rounded-lg shadow-2xl border-t-4 border-veteran-rust">
+            <div class="flex items-center justify-between px-6 py-4 border-b border-veteran-stone/30">
+                <h3 class="font-sans uppercase tracking-widest text-veteran-forest font-bold">Send Feedback</h3>
+                <button id="rb-fb-close" type="button" class="text-veteran-stone hover:text-veteran-rust text-xl leading-none" aria-label="Close">&times;</button>
+            </div>
+            <form id="rb-fb-form" class="px-6 py-5 space-y-4">
+                <p class="text-sm text-veteran-stone">Spot a typo, a bug, or have an idea for the site? Let us know — it goes straight to our tracker.</p>
+                <textarea name="message" required rows="4" maxlength="5000" placeholder="What's on your mind?"
+                    class="w-full border border-veteran-stone/40 bg-white/70 px-3 py-2 text-veteran-charcoal focus:outline-none focus:border-veteran-rust"></textarea>
+                <div class="grid grid-cols-2 gap-3">
+                    <input name="name" type="text" maxlength="120" placeholder="Name (optional)"
+                        class="w-full border border-veteran-stone/40 bg-white/70 px-3 py-2 text-veteran-charcoal focus:outline-none focus:border-veteran-rust">
+                    <input name="email" type="email" maxlength="200" placeholder="Email (optional)"
+                        class="w-full border border-veteran-stone/40 bg-white/70 px-3 py-2 text-veteran-charcoal focus:outline-none focus:border-veteran-rust">
+                </div>
+                <!-- honeypot: hidden from humans, bots fill it -->
+                <input name="website" type="text" tabindex="-1" autocomplete="off" class="hidden" aria-hidden="true">
+                <div class="flex items-center justify-end gap-3 pt-1">
+                    <span id="rb-fb-status" class="text-sm mr-auto"></span>
+                    <button type="submit" id="rb-fb-submit"
+                        class="bg-veteran-rust text-white font-sans uppercase tracking-widest font-bold px-6 py-2 hover:bg-[#9a4d22] transition duration-300 disabled:opacity-50">
+                        Send
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        (function () {
+            const openBtn  = document.getElementById('rb-fb-open');
+            const modal    = document.getElementById('rb-fb-modal');
+            const closeBtn = document.getElementById('rb-fb-close');
+            const form     = document.getElementById('rb-fb-form');
+            const status   = document.getElementById('rb-fb-status');
+            const submit   = document.getElementById('rb-fb-submit');
+            if (!openBtn) return;
+
+            const show = () => { modal.classList.remove('hidden'); modal.classList.add('flex'); };
+            const hide = () => { modal.classList.add('hidden'); modal.classList.remove('flex'); };
+
+            openBtn.addEventListener('click', show);
+            closeBtn.addEventListener('click', hide);
+            modal.addEventListener('click', (e) => { if (e.target === modal) hide(); });
+            document.addEventListener('keydown', (e) => { if (e.key === 'Escape') hide(); });
+
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                status.textContent = '';
+                submit.disabled = true;
+                submit.textContent = 'Sending…';
+
+                const fd = new FormData(form);
+                fd.append('page', location.pathname + location.search);
+
+                try {
+                    const res = await fetch('feedback.php', { method: 'POST', body: fd });
+                    const data = await res.json().catch(() => ({}));
+                    if (res.ok && data.ok) {
+                        form.reset();
+                        status.className = 'text-sm mr-auto text-veteran-forest';
+                        status.textContent = 'Thanks — got it!';
+                        setTimeout(hide, 1400);
+                    } else {
+                        status.className = 'text-sm mr-auto text-veteran-rust';
+                        status.textContent = 'Something went wrong. Please try again.';
+                    }
+                } catch (err) {
+                    status.className = 'text-sm mr-auto text-veteran-rust';
+                    status.textContent = 'Network error. Please try again.';
+                } finally {
+                    submit.disabled = false;
+                    submit.textContent = 'Send';
+                }
+            });
+        })();
+    </script>
 </body>
 </html>
