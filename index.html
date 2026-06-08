@@ -266,29 +266,43 @@
         </div>
     </section>
 
-    <!-- Pre-Order / Footer CTA -->
+    <!-- Contact Don / Engagements CTA -->
     <section id="preorder" class="py-20 bg-veteran-charcoal text-center px-4">
         <div class="max-w-3xl mx-auto space-y-8 reveal">
-            <h2 class="font-sans text-3xl md:text-4xl font-bold text-white uppercase tracking-wide">Ready to read the full story?</h2>
-            <p class="text-gray-400 font-serif text-lg">Sign up to be notified the moment the book drops on Kindle, Print, and Audio this Summer.</p>
-            
-            <form id="notify-form" class="flex flex-col sm:flex-row gap-4 justify-center max-w-lg mx-auto mt-8 relative">
-                <input type="email" id="email-input" name="email" required placeholder="Enter your email address" class="px-6 py-4 w-full sm:w-2/3 font-sans text-veteran-charcoal focus:outline-none border-2 border-transparent focus:border-veteran-rust bg-veteran-sand transition">
-                <button type="submit" id="submit-btn" class="bg-veteran-rust text-white font-sans uppercase tracking-widest font-bold px-8 py-4 w-full sm:w-1/3 hover:bg-[#9a4d22] transition duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center">
-                    <span id="btn-text">Notify Me</span>
+            <h2 class="font-sans text-3xl md:text-4xl font-bold text-white uppercase tracking-wide">Invite Don to Share His Story</h2>
+            <p class="text-gray-400 font-serif text-lg">Podcasts, speaking engagements, interviews, and events — if Don's journey would resonate with your audience, reach out below and he'll be in touch.</p>
+
+            <form id="contact-form" class="space-y-4 max-w-lg mx-auto mt-8 text-left">
+                <!-- Honeypot: hidden from humans; bots fill it and get a silent no-op -->
+                <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" class="hidden">
+
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <input type="text" id="contact-name" name="name" required placeholder="Your name" class="px-6 py-4 w-full font-sans text-veteran-charcoal focus:outline-none border-2 border-transparent focus:border-veteran-rust bg-veteran-sand transition">
+                    <input type="email" id="contact-email" name="email" required placeholder="Your email" class="px-6 py-4 w-full font-sans text-veteran-charcoal focus:outline-none border-2 border-transparent focus:border-veteran-rust bg-veteran-sand transition">
+                </div>
+
+                <select id="contact-type" name="type" required class="px-6 py-4 w-full font-sans text-veteran-charcoal focus:outline-none border-2 border-transparent focus:border-veteran-rust bg-veteran-sand transition">
+                    <option value="" disabled selected>What's this regarding?</option>
+                    <option value="Podcast">Podcast</option>
+                    <option value="Speaking Engagement">Speaking Engagement</option>
+                    <option value="Media / Interview">Media / Interview</option>
+                    <option value="Other">Other</option>
+                </select>
+
+                <textarea id="contact-message" name="message" required rows="4" placeholder="Tell Don a little about your audience and what you have in mind…" class="px-6 py-4 w-full font-sans text-veteran-charcoal focus:outline-none border-2 border-transparent focus:border-veteran-rust bg-veteran-sand transition resize-y"></textarea>
+
+                <button type="submit" id="submit-btn" class="bg-veteran-rust text-white font-sans uppercase tracking-widest font-bold px-8 py-4 w-full hover:bg-[#9a4d22] transition duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center">
+                    <span id="btn-text">Send to Don</span>
                     <i id="btn-spinner" class="fa-solid fa-circle-notch fa-spin hidden ml-2"></i>
                 </button>
             </form>
-            
-            <!-- Success/Error/Duplicate Messages -->
+
+            <!-- Success/Error Messages -->
             <div id="form-success" class="hidden mt-4 text-green-500 font-sans font-bold tracking-widest uppercase text-sm bg-green-500/10 py-3 rounded max-w-lg mx-auto border border-green-500/20">
-                <i class="fa-solid fa-check-circle mr-2"></i>Thank you! You've been added to the list.
-            </div>
-            <div id="form-duplicate" class="hidden mt-4 text-veteran-rust font-sans font-bold tracking-widest uppercase text-sm bg-veteran-rust/10 py-3 rounded max-w-lg mx-auto border border-veteran-rust/20">
-                <i class="fa-solid fa-info-circle mr-2"></i>You are already on the list!
+                <i class="fa-solid fa-check-circle mr-2"></i>Thank you! Your message is on its way to Don — he'll be in touch soon.
             </div>
             <div id="form-error" class="hidden mt-4 text-red-500 font-sans tracking-widest uppercase text-sm bg-red-500/10 py-3 rounded max-w-lg mx-auto border border-red-500/20">
-                <i class="fa-solid fa-triangle-exclamation mr-2"></i>Oops! Something went wrong. Please try again.
+                <i class="fa-solid fa-triangle-exclamation mr-2"></i>Oops! Something went wrong. Please try again, or email Don directly.
             </div>
         </div>
     </section>
@@ -506,34 +520,32 @@
             });
         });
 
-        // 2. Google Sheets Form Submission Handler
-        const form = document.getElementById('notify-form');
+        // 2. Contact Don — Google Apps Script submission handler
+        const form = document.getElementById('contact-form');
         const submitBtn = document.getElementById('submit-btn');
         const btnText = document.getElementById('btn-text');
         const btnSpinner = document.getElementById('btn-spinner');
         const successMsg = document.getElementById('form-success');
         const errorMsg = document.getElementById('form-error');
-        const duplicateMsg = document.getElementById('form-duplicate');
 
-        // Embedded user-provided Google Script Web App URL
+        // Google Apps Script Web App URL (emails Don + logs to a Sheet)
         const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyC-hioXtVxArBzquttvWzPv4Odg9my8EgfaYooOYpqLKL4e6lzy_oruGQdbShteDCabw/exec';
 
         if (form) {
             form.addEventListener('submit', async (e) => {
                 e.preventDefault();
-                
+
                 // Hide previous messages
                 successMsg.classList.add('hidden');
                 errorMsg.classList.add('hidden');
-                duplicateMsg.classList.add('hidden');
-                
+
                 // Show loading state
                 submitBtn.disabled = true;
-                btnText.innerText = 'Sending...';
+                btnText.innerText = 'Sending…';
                 btnSpinner.classList.remove('hidden');
 
                 const formData = new FormData(form);
-                // Convert to URLSearchParams to ensure proper content-type and avoid CORS preflight issues
+                // URLSearchParams keeps the content-type simple and avoids a CORS preflight
                 const urlEncodedData = new URLSearchParams(formData).toString();
 
                 try {
@@ -547,26 +559,24 @@
 
                     const data = await response.json();
 
-                    form.reset();
-                    form.classList.add('hidden'); // Hide form on success or duplicate
-                    
-                    if (data.result === 'duplicate') {
-                        duplicateMsg.classList.remove('hidden');
-                    } else {
-                        successMsg.classList.remove('hidden');
+                    if (data.result === 'error') {
+                        throw new Error(data.error || 'submission_failed');
                     }
+
+                    form.reset();
+                    form.classList.add('hidden');
+                    successMsg.classList.remove('hidden');
 
                 } catch (error) {
                     console.error('Form submission error:', error);
-                    // Google Apps Script sometimes blocks reading the response via CORS even if it succeeds.
-                    // Fallback to gracefully showing success if it failed to parse but likely submitted.
+                    // Apps Script sometimes blocks reading the response via CORS even on success.
+                    // Treat a parse/network failure as a likely success so visitors aren't double-sending.
                     form.reset();
                     form.classList.add('hidden');
-                    successMsg.classList.remove('hidden'); 
+                    successMsg.classList.remove('hidden');
                 } finally {
-                    // Reset button state
                     submitBtn.disabled = false;
-                    btnText.innerText = 'Notify Me';
+                    btnText.innerText = 'Send to Don';
                     btnSpinner.classList.add('hidden');
                 }
             });
