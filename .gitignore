@@ -7,8 +7,12 @@
 /TIME_LOG.md
 # internal admin tooling (issues.php)
 /admin/
-# local working copy; deployed backend is tracked as /feedback.php
-/feedback/
+# feedback backend: the safe example config IS tracked (feedback-config.example.php).
+# Keep the internal runbook, the duplicate script (real one is /feedback.php), and
+# any real config out of this PUBLIC repo / live webroot.
+/feedback/DEPLOY.md
+/feedback/feedback.php
+/feedback/feedback-config.php
 # editor/agent local settings
 /.claude/
 
