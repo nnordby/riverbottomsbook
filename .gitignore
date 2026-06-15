@@ -1,3 +1,18 @@
 .DS_Store
 ._*
 .localized
+
+# Local / private working files — never publish to this public repo
+# billing ledger
+/TIME_LOG.md
+# internal admin tooling (issues.php)
+/admin/
+# local working copy; deployed backend is tracked as /feedback.php
+/feedback/
+# editor/agent local settings
+/.claude/
+
+# Stray source assets superseded by the committed .webp files
+/img/portrait_chrs_perales.jpeg
+/img/portrait_leo_hellyer.jpeg
+/img/webp/
