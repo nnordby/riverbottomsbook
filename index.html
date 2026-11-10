@@ -52,6 +52,8 @@
             opacity: 1;
             transform: translateY(0);
         }
+        .appearances-row { scrollbar-width: none; }
+        .appearances-row::-webkit-scrollbar { display: none; }
         .delay-200 { transition-delay: 200ms; }
         .delay-400 { transition-delay: 400ms; }
     </style>
@@ -66,6 +68,7 @@
             </div>
             <div class="hidden md:flex space-x-8 font-sans uppercase tracking-wider text-sm">
                 <a href="#the-story" class="hover:text-veteran-rust transition">The Story</a>
+                <a href="#appearances" data-appearances-nav hidden class="hover:text-veteran-rust transition">Appearances</a>
                 <a href="#the-author" class="hover:text-veteran-rust transition">The Author</a>
                 <a href="#the-mission" class="hover:text-veteran-rust transition">The Mission</a>
                 <a href="#contact" class="hover:text-veteran-rust transition">Contact</a>
@@ -82,6 +85,7 @@
         <div id="mobile-menu" class="hidden md:hidden mt-4 px-4 sm:px-6 font-sans uppercase tracking-wider text-sm">
             <div class="flex flex-col space-y-3 pt-3 border-t border-veteran-rust/40">
                 <a href="#the-story" class="hover:text-veteran-rust transition">The Story</a>
+                <a href="#appearances" data-appearances-nav hidden class="hover:text-veteran-rust transition">Appearances</a>
                 <a href="#the-author" class="hover:text-veteran-rust transition">The Author</a>
                 <a href="#the-mission" class="hover:text-veteran-rust transition">The Mission</a>
                 <a href="#contact" class="hover:text-veteran-rust transition">Contact</a>
@@ -208,15 +212,29 @@
             </div>
 
             <!-- Upcoming Appearances Section (data-driven — see EVENTS array in script) -->
-            <div class="mt-28 reveal" id="appearances">
+            <div class="mt-28 reveal scroll-mt-28" id="appearances">
                 <div class="text-center mb-12">
-                    <div class="font-sans text-veteran-rust font-bold uppercase tracking-widest text-sm mb-3">📖 Meet Don in Person</div>
+                    <div id="appearances-eyebrow" class="font-sans text-veteran-rust font-bold uppercase tracking-widest text-sm mb-3">On the Air &amp; In Person</div>
                     <h2 class="font-sans text-4xl md:text-5xl font-bold uppercase text-veteran-charcoal leading-tight">Upcoming Appearances</h2>
                 </div>
-                <div id="appearances-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-                    <!-- JS renders appearance cards here -->
+                <!-- One or two cards sit side by side; more than that becomes a swipeable row with arrows -->
+                <div class="max-w-5xl mx-auto">
+                    <div id="appearances-grid" class="appearances-row flex gap-8 overflow-x-auto snap-x snap-mandatory scroll-smooth scroll-px-4 px-4 -mx-4 pt-2 pb-12">
+                        <!-- JS renders appearance cards here -->
+                    </div>
+                    <div id="appearances-controls" class="hidden items-center justify-center gap-4 -mt-2">
+                        <button id="appearances-prev" type="button" aria-label="Previous appearances"
+                            class="w-11 h-11 flex items-center justify-center border-2 border-veteran-forest text-veteran-forest hover:bg-veteran-forest hover:text-veteran-sand disabled:opacity-30 disabled:pointer-events-none transition">
+                            <i class="fa-solid fa-chevron-left text-sm"></i>
+                        </button>
+                        <span id="appearances-count" class="font-sans uppercase tracking-widest text-sm text-veteran-stone"></span>
+                        <button id="appearances-next" type="button" aria-label="More appearances"
+                            class="w-11 h-11 flex items-center justify-center border-2 border-veteran-forest text-veteran-forest hover:bg-veteran-forest hover:text-veteran-sand disabled:opacity-30 disabled:pointer-events-none transition">
+                            <i class="fa-solid fa-chevron-right text-sm"></i>
+                        </button>
+                    </div>
                 </div>
-                <p id="appearances-empty" class="hidden text-center text-veteran-stone italic text-lg">More appearances on the way — <a href="#preorder" class="text-veteran-rust font-bold underline">join the list</a> to hear first.</p>
+                <p id="appearances-empty" class="hidden text-center text-veteran-stone italic text-lg">More appearances on the way. Check back soon.</p>
             </div>
 
             <!-- Book Endorsement Section -->
@@ -595,7 +613,19 @@
                     .filter(e => parse(e.end || e.start) >= today)
                     .sort((a, b) => parse(a.start) - parse(b.start));
 
-                if (!upcoming.length) { showEmpty(); return; }
+                if (!upcoming.length) { grid.classList.add('hidden'); showEmpty(); return; }
+
+                // Menu link only exists while there is something to show
+                document.querySelectorAll('[data-appearances-nav]').forEach(a => a.hidden = false);
+
+                // Label above the heading matches what is actually coming up
+                const hasMedia = upcoming.some(e => e.type === 'media');
+                const hasLive = upcoming.some(e => e.type !== 'media');
+                const eyebrow = document.getElementById('appearances-eyebrow');
+                if (eyebrow) eyebrow.textContent = hasMedia && hasLive ? 'On the Air & In Person'
+                    : hasMedia ? '📻 Catch Don on the Air' : '📖 Meet Don in Person';
+
+                if (upcoming.length <= 2) grid.classList.add('md:justify-center');
 
                 grid.innerHTML = upcoming.map(e => {
                     const isMedia = e.type === 'media';
@@ -608,7 +638,7 @@
                         ? `<a href="${esc(e.link)}" target="_blank" rel="noopener" class="inline-block mt-5 self-start font-sans uppercase tracking-widest bg-veteran-rust text-white px-6 py-3 text-sm font-bold hover:bg-veteran-forest transition duration-300">${isMedia ? 'Tune In' : 'Details'} →</a>`
                         : '';
                     return `
-                    <div class="bg-veteran-olive text-veteran-sand shadow-2xl border-b-4 border-veteran-rust p-8 flex flex-col">
+                    <div class="snap-start shrink-0 w-full md:w-[calc(50%-1rem)] bg-veteran-olive text-veteran-sand shadow-xl border-b-4 border-veteran-rust p-8 flex flex-col">
                         <div class="font-sans text-veteran-rust font-bold uppercase tracking-widest text-xs mb-3">${tag}</div>
                         <h3 class="font-sans text-2xl md:text-3xl font-bold uppercase leading-tight mb-1">${esc(e.title || '')}</h3>
                         <div class="font-sans text-lg text-veteran-sand opacity-90 mb-5">${esc(dateLine(e))}</div>
@@ -617,6 +647,32 @@
                         ${cta}
                     </div>`;
                 }).join('');
+
+                // Arrows + "1–2 of 5" appear only when the cards don't all fit
+                const controls = document.getElementById('appearances-controls');
+                const prev = document.getElementById('appearances-prev');
+                const next = document.getElementById('appearances-next');
+                const count = document.getElementById('appearances-count');
+                const step = () => (grid.firstElementChild ? grid.firstElementChild.getBoundingClientRect().width + 32 : grid.clientWidth);
+                const sync = () => {
+                    const overflow = grid.scrollWidth - grid.clientWidth > 4;
+                    controls.classList.toggle('hidden', !overflow);
+                    controls.classList.toggle('flex', overflow);
+                    if (!overflow) return;
+                    const per = Math.max(1, Math.round((grid.clientWidth + 32) / step()));
+                    const first = Math.min(upcoming.length - per, Math.round(grid.scrollLeft / step())) + 1;
+                    const last = first + per - 1;
+                    count.textContent = (per > 1 ? `${first}–${last}` : `${first}`) + ` of ${upcoming.length}`;
+                    prev.disabled = grid.scrollLeft < 4;
+                    next.disabled = grid.scrollLeft > grid.scrollWidth - grid.clientWidth - 4;
+                };
+                prev.addEventListener('click', () => grid.scrollBy({ left: -step(), behavior: 'smooth' }));
+                next.addEventListener('click', () => grid.scrollBy({ left: step(), behavior: 'smooth' }));
+                grid.addEventListener('scroll', () => requestAnimationFrame(sync), { passive: true });
+                window.addEventListener('resize', sync);
+                // Card widths settle after the Tailwind CDN styles the new cards, so re-check then
+                if ('ResizeObserver' in window) new ResizeObserver(sync).observe(grid.firstElementChild);
+                sync();
             };
 
             fetch('appearances/api.php', { cache: 'no-store' })
