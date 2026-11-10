@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Manage Appearances | River Bottoms</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Oswald:wght@400;500;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: { extend: {
+                colors: { veteran: { olive: '#4B5320', forest: '#2C3E35', rust: '#B75D29', sand: '#EAE4D3', charcoal: '#222222', stone: '#595C5A' } },
+                fontFamily: { serif: ['Lora', 'serif'], sans: ['Oswald', 'sans-serif'] }
+            } }
+        }
+    </script>
+    <style>
+        .field { width: 100%; background: #fff; border: 2px solid #c9c2ad; padding: 0.7rem 0.85rem; font-size: 1.05rem; font-family: Lora, serif; color: #222; }
+        .field:focus { outline: none; border-color: #B75D29; }
+        .lbl { display: block; font-family: Oswald, sans-serif; text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.85rem; font-weight: 700; color: #2C3E35; margin-bottom: 0.35rem; }
+        .hint { font-size: 0.9rem; color: #595C5A; font-style: italic; margin-top: 0.3rem; }
+    </style>
+</head>
+<body class="font-serif text-veteran-charcoal bg-veteran-sand antialiased min-h-screen">
+
+    <header class="bg-veteran-forest text-veteran-sand py-4 border-b-4 border-veteran-rust">
+        <div class="max-w-3xl mx-auto px-4 flex justify-between items-center">
+            <div class="font-sans font-bold text-xl tracking-widest uppercase">Manage Appearances</div>
+            <a href="../#appearances" class="font-sans uppercase tracking-wider text-sm hover:text-veteran-rust transition">View the site &rarr;</a>
+        </div>
+    </header>
+
+    <main class="max-w-3xl mx-auto px-4 py-10">
+
+        <!-- PIN screen -->
+        <section id="gate" class="max-w-sm mx-auto text-center pt-10">
+            <h1 class="font-sans text-3xl font-bold uppercase text-veteran-forest mb-2">Enter your PIN</h1>
+            <p class="text-veteran-stone mb-6">This page lets you add radio spots, podcasts, signings and other appearances to the website.</p>
+            <form id="gate-form">
+                <input id="pin" type="password" inputmode="numeric" autocomplete="off" maxlength="12" aria-label="PIN"
+                       class="field text-center text-2xl tracking-[0.4em]" placeholder="••••••">
+                <button type="submit" class="mt-4 w-full font-sans uppercase tracking-widest bg-veteran-rust text-white px-6 py-3 font-bold hover:bg-veteran-forest transition">Unlock</button>
+            </form>
+            <p id="gate-msg" class="mt-4 text-veteran-rust font-semibold min-h-[1.5rem]" aria-live="polite"></p>
+        </section>
+
+        <!-- Editor -->
+        <section id="editor" class="hidden">
+            <div class="bg-white/60 border-l-8 border-veteran-rust shadow-lg p-6 md:p-8">
+                <h1 id="form-title" class="font-sans text-3xl font-bold uppercase text-veteran-forest mb-6">Add an appearance</h1>
+                <form id="event-form" class="space-y-5" novalidate>
+                    <input type="hidden" id="f-id">
+
+                    <div>
+                        <span class="lbl">What kind is it?</span>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            <label class="flex items-center gap-3 bg-white border-2 border-[#c9c2ad] px-4 py-3 cursor-pointer">
+                                <input type="radio" name="type" value="media" checked class="w-5 h-5 accent-[#B75D29]">
+                                <span>📻 Radio, podcast or TV</span>
+                            </label>
+                            <label class="flex items-center gap-3 bg-white border-2 border-[#c9c2ad] px-4 py-3 cursor-pointer">
+                                <input type="radio" name="type" value="in-person" class="w-5 h-5 accent-[#B75D29]">
+                                <span>📖 In person (signing, fair, talk)</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="lbl" for="f-title">Title</label>
+                        <input id="f-title" class="field" maxlength="120" placeholder="KIDO Talk Radio with Kevin Miller">
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="lbl" for="f-start">Date</label>
+                            <input id="f-start" type="date" class="field">
+                        </div>
+                        <div>
+                            <label class="lbl" for="f-end">Last day <span class="font-normal normal-case tracking-normal">(only if more than one day)</span></label>
+                            <input id="f-end" type="date" class="field">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="lbl" for="f-time">Time <span class="font-normal normal-case tracking-normal">(optional)</span></label>
+                        <input id="f-time" class="field" maxlength="60" placeholder="7:00 AM MT">
+                    </div>
+
+                    <div>
+                        <label class="lbl" for="f-where">Where</label>
+                        <input id="f-where" class="field" maxlength="120" placeholder="Boise, Idaho   or   kidotalkradio.com">
+                    </div>
+
+                    <div>
+                        <label class="lbl" for="f-who">Who will be there <span class="font-normal normal-case tracking-normal">(optional)</span></label>
+                        <input id="f-who" class="field" maxlength="120" placeholder="Don, Janet & Lucy">
+                    </div>
+
+                    <div>
+                        <label class="lbl" for="f-link">Link <span class="font-normal normal-case tracking-normal">(optional)</span></label>
+                        <input id="f-link" class="field" maxlength="300" inputmode="url" placeholder="https://kidotalkradio.com/">
+                        <p class="hint">Where people can listen or get details. Adds a button to the card.</p>
+                    </div>
+
+                    <div>
+                        <label class="lbl" for="f-blurb">A sentence or two about it</label>
+                        <textarea id="f-blurb" class="field" rows="3" maxlength="600" placeholder="Don calls in to talk about the book and the mission behind it. Tune in live."></textarea>
+                    </div>
+
+                    <p id="form-msg" class="font-semibold min-h-[1.5rem]" aria-live="polite"></p>
+
+                    <div class="flex flex-wrap gap-3">
+                        <button type="submit" id="save-btn" class="font-sans uppercase tracking-widest bg-veteran-rust text-white px-8 py-3 font-bold hover:bg-veteran-forest transition">Add to the website</button>
+                        <button type="button" id="cancel-btn" class="hidden font-sans uppercase tracking-widest border-2 border-veteran-stone text-veteran-stone px-6 py-3 font-bold hover:border-veteran-forest hover:text-veteran-forest transition">Cancel</button>
+                    </div>
+                </form>
+            </div>
+
+            <h2 class="font-sans text-2xl font-bold uppercase text-veteran-forest mt-12 mb-4">On the website now</h2>
+            <div id="list-upcoming" class="space-y-3"></div>
+
+            <h2 class="font-sans text-xl font-bold uppercase text-veteran-stone mt-10 mb-1">Already happened</h2>
+            <p class="text-veteran-stone italic mb-4">These drop off the website on their own. Nothing to clean up.</p>
+            <div id="list-past" class="space-y-3"></div>
+        </section>
+    </main>
+
+    <script>
+    (function () {
+        const API = 'api.php';
+        const $ = (id) => document.getElementById(id);
+        const esc = (s) => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+        const parse = (d) => { const [y, m, day] = d.split('-').map(Number); return new Date(y, m - 1, day); };
+        let pin = '';
+        let events = [];
+
+        try { pin = sessionStorage.getItem('rb_pin') || ''; } catch (e) {}
+
+        function dateLine(e) {
+            const s = parse(e.start);
+            const md = (d, month) => d.toLocaleDateString('en-US', { month: month, day: 'numeric' });
+            if (e.end && e.end !== e.start) {
+                const en = parse(e.end);
+                if (s.getFullYear() === en.getFullYear() && s.getMonth() === en.getMonth())
+                    return `${md(s, 'short')}–${en.getDate()}, ${en.getFullYear()}`;
+                return `${md(s, 'short')} – ${md(en, 'short')}, ${en.getFullYear()}`;
+            }
+            const day = s.toLocaleDateString('en-US', { weekday: 'short', month: 'long', day: 'numeric' });
+            const yr = s.getFullYear() !== new Date().getFullYear() ? `, ${s.getFullYear()}` : '';
+            return day + yr + (e.time ? ` · ${e.time}` : '');
+        }
+
+        async function call(action, fields) {
+            const body = new URLSearchParams({ action, pin, ...(fields || {}) });
+            let res, data;
+            try {
+                res = await fetch(API, { method: 'POST', body });
+                data = await res.json();
+            } catch (err) {
+                return { ok: false, error: 'Could not reach the website. Check your connection and try again.' };
+            }
+            if (data.error === 'bad_pin') data.error = 'That PIN is not right.';
+            if (data.error === 'locked') data.error = `Too many wrong tries. Please wait ${data.minutes} minutes and try again.`;
+            if (data.error === 'not_configured') data.error = 'This page is not set up yet. Let Nate know.';
+            return data;
+        }
+
+        function render() {
+            const today = new Date(); today.setHours(0, 0, 0, 0);
+            const sorted = events.slice().sort((a, b) => parse(a.start) - parse(b.start));
+            const up = sorted.filter(e => parse(e.end || e.start) >= today);
+            const past = sorted.filter(e => parse(e.end || e.start) < today).reverse();
+            const row = (e, isPast) => `
+                <div class="bg-white/70 border-l-4 ${isPast ? 'border-veteran-stone opacity-70' : 'border-veteran-olive'} px-5 py-4 flex flex-col sm:flex-row sm:items-center gap-3">
+                    <div class="flex-1 min-w-0">
+                        <div class="font-sans text-xs uppercase tracking-widest text-veteran-rust font-bold">${e.type === 'media' ? '📻 On the air' : '📖 In person'}</div>
+                        <div class="font-sans text-xl font-bold uppercase leading-tight break-words">${esc(e.title)}</div>
+                        <div class="text-veteran-stone">${esc(dateLine(e))}${e.where ? ' · ' + esc(e.where) : ''}</div>
+                    </div>
+                    <div class="flex gap-2 shrink-0">
+                        <button data-edit="${esc(e.id)}" class="font-sans uppercase tracking-wider text-sm border-2 border-veteran-forest text-veteran-forest px-4 py-2 font-bold hover:bg-veteran-forest hover:text-white transition">Edit</button>
+                        <button data-del="${esc(e.id)}" class="font-sans uppercase tracking-wider text-sm border-2 border-veteran-rust text-veteran-rust px-4 py-2 font-bold hover:bg-veteran-rust hover:text-white transition">Remove</button>
+                    </div>
+                </div>`;
+            $('list-upcoming').innerHTML = up.length ? up.map(e => row(e, false)).join('')
+                : '<p class="text-veteran-stone italic">Nothing coming up yet. Add one above.</p>';
+            $('list-past').innerHTML = past.length ? past.map(e => row(e, true)).join('')
+                : '<p class="text-veteran-stone italic">None.</p>';
+        }
+
+        function resetForm() {
+            $('event-form').reset();
+            $('f-id').value = '';
+            $('form-title').textContent = 'Add an appearance';
+            $('save-btn').textContent = 'Add to the website';
+            $('cancel-btn').classList.add('hidden');
+        }
+
+        function msg(text, good) {
+            const el = $('form-msg');
+            el.textContent = text;
+            el.className = 'font-semibold min-h-[1.5rem] ' + (good ? 'text-veteran-olive' : 'text-veteran-rust');
+        }
+
+        async function unlock(silent) {
+            const data = await call('list');
+            if (!data.ok) {
+                if (!silent) $('gate-msg').textContent = data.error || 'Something went wrong.';
+                pin = '';
+                try { sessionStorage.removeItem('rb_pin'); } catch (e) {}
+                return;
+            }
+            try { sessionStorage.setItem('rb_pin', pin); } catch (e) {}
+            events = data.events || [];
+            $('gate').classList.add('hidden');
+            $('editor').classList.remove('hidden');
+            render();
+        }
+
+        $('gate-form').addEventListener('submit', (ev) => {
+            ev.preventDefault();
+            pin = $('pin').value.trim();
+            if (!pin) return;
+            $('gate-msg').textContent = '';
+            unlock(false);
+        });
+
+        $('event-form').addEventListener('submit', async (ev) => {
+            ev.preventDefault();
+            const editing = !!$('f-id').value;
+            const btn = $('save-btn');
+            btn.disabled = true;
+            msg('Saving…', true);
+            const data = await call('save', {
+                id: $('f-id').value,
+                type: document.querySelector('input[name="type"]:checked').value,
+                title: $('f-title').value,
+                start: $('f-start').value,
+                end: $('f-end').value,
+                time: $('f-time').value,
+                where: $('f-where').value,
+                who: $('f-who').value,
+                link: $('f-link').value,
+                blurb: $('f-blurb').value
+            });
+            btn.disabled = false;
+            if (!data.ok) { msg(data.error || 'Something went wrong.', false); return; }
+            events = data.events;
+            resetForm();
+            render();
+            msg(editing ? 'Saved. The website is updated.' : 'Added. It is on the website now.', true);
+        });
+
+        $('cancel-btn').addEventListener('click', () => { resetForm(); msg('', true); });
+
+        document.addEventListener('click', async (ev) => {
+            const edit = ev.target.closest('[data-edit]');
+            const del = ev.target.closest('[data-del]');
+            if (edit) {
+                const e = events.find(x => x.id === edit.dataset.edit);
+                if (!e) return;
+                $('f-id').value = e.id;
+                document.querySelector(`input[name="type"][value="${e.type === 'media' ? 'media' : 'in-person'}"]`).checked = true;
+                $('f-title').value = e.title || '';
+                $('f-start').value = e.start || '';
+                $('f-end').value = e.end || '';
+                $('f-time').value = e.time || '';
+                $('f-where').value = e.where || '';
+                $('f-who').value = e.who || '';
+                $('f-link').value = e.link || '';
+                $('f-blurb').value = e.blurb || '';
+                $('form-title').textContent = 'Edit appearance';
+                $('save-btn').textContent = 'Save changes';
+                $('cancel-btn').classList.remove('hidden');
+                msg('', true);
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+            if (del) {
+                const e = events.find(x => x.id === del.dataset.del);
+                if (!e || !confirm(`Remove "${e.title}" from the website?`)) return;
+                const data = await call('delete', { id: e.id });
+                if (!data.ok) { alert(data.error || 'Something went wrong.'); return; }
+                events = data.events;
+                if ($('f-id').value === e.id) resetForm();
+                render();
+            }
+        });
+
+        if (pin) unlock(true);
+    })();
+    </script>
+</body>
+</html>

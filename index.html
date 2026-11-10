@@ -557,73 +557,72 @@
         })();
 
         // ── Upcoming Appearances ─────────────────────────────────────────────
-        // To add an appearance: append one object below. Past events auto-hide
-        // (by `end`/`start` date), and the list auto-sorts soonest-first.
-        //   type:  'in-person' (fairs, signings)  |  'media' (radio, podcast, TV)
-        //   start: 'YYYY-MM-DD'  (required)        end: 'YYYY-MM-DD' (optional, multi-day)
-        //   dateLabel / time: the human-readable date string shown on the card
-        //   where, who, blurb, link (link drives the "Tune In" button on media)
+        // Data-driven: Don adds/edits appearances himself at /appearances/ (PIN).
+        // They are stored server-side and served by appearances/api.php.
+        // Past events auto-hide (by `end`/`start` date); list sorts soonest-first.
+        //   type: 'in-person' | 'media'      start/end: 'YYYY-MM-DD'
+        //   time, where, who, blurb, link (link adds the button on the card)
         (function () {
             const grid = document.getElementById('appearances-grid');
             if (!grid) return;
 
-            const EVENTS = [
-                {
-                    type: 'media',
-                    title: 'KIDO Talk Radio with Kevin Miller',
-                    start: '2026-06-17',
-                    time: 'Wed, June 17 · 7:00 AM MT',
-                    where: 'kidotalkradio.com',
-                    link: 'https://kidotalkradio.com/',
-                    blurb: 'Don calls in to talk about the book, the long road back, and the mission behind it. Tune in live.'
-                },
-                {
-                    type: 'in-person',
-                    title: 'Western Idaho State Fair',
-                    start: '2026-08-21',
-                    end: '2026-08-30',
-                    dateLabel: 'Aug 21–30, 2026',
-                    where: 'Boise, Idaho',
-                    who: 'Don, Janet & Lucy',
-                    blurb: 'Ten days at the biggest fair in the valley. Swing by the booth to meet Don, see Lucy out front, and pick up a signed copy.'
-                }
-            ];
-
-            const today = new Date(); today.setHours(0, 0, 0, 0);
             const parse = (d) => { const [y, m, day] = d.split('-').map(Number); return new Date(y, m - 1, day); };
             const esc = (s) => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
-
-            const upcoming = EVENTS
-                .filter(e => parse(e.end || e.start) >= today)
-                .sort((a, b) => parse(a.start) - parse(b.start));
-
-            if (!upcoming.length) {
+            const showEmpty = () => {
                 const empty = document.getElementById('appearances-empty');
                 if (empty) empty.classList.remove('hidden');
-                return;
-            }
+            };
 
-            grid.innerHTML = upcoming.map(e => {
-                const isMedia = e.type === 'media';
-                const tag = isMedia ? '📻 On the Air' : '📖 Meet Don in Person';
-                const dateLine = esc(isMedia ? (e.time || '') : (e.dateLabel || ''));
-                const meta = [
-                    e.where ? `<p><strong>Where:</strong> ${esc(e.where)}</p>` : '',
-                    e.who ? `<p><strong>Who:</strong> ${esc(e.who)}</p>` : ''
-                ].join('');
-                const cta = (isMedia && e.link)
-                    ? `<a href="${esc(e.link)}" target="_blank" rel="noopener" class="inline-block mt-5 self-start font-sans uppercase tracking-widest bg-veteran-rust text-white px-6 py-3 text-sm font-bold hover:bg-veteran-forest transition duration-300">Tune In →</a>`
-                    : '';
-                return `
-                <div class="bg-veteran-olive text-veteran-sand shadow-2xl border-b-4 border-veteran-rust p-8 flex flex-col">
-                    <div class="font-sans text-veteran-rust font-bold uppercase tracking-widest text-xs mb-3">${tag}</div>
-                    <h3 class="font-sans text-2xl md:text-3xl font-bold uppercase leading-tight mb-1">${esc(e.title)}</h3>
-                    <div class="font-sans text-lg text-veteran-sand opacity-90 mb-5">${dateLine}</div>
-                    <div class="space-y-2 text-base mb-3">${meta}</div>
-                    <p class="text-veteran-sand opacity-90 italic leading-relaxed flex-1">${esc(e.blurb)}</p>
-                    ${cta}
-                </div>`;
-            }).join('');
+            // "Wed, June 17 · 7:00 AM MT"  or  "Aug 21–30, 2026" for multi-day
+            const dateLine = (e) => {
+                const s = parse(e.start);
+                const md = (d) => d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+                if (e.end && e.end !== e.start) {
+                    const en = parse(e.end);
+                    if (s.getFullYear() === en.getFullYear() && s.getMonth() === en.getMonth())
+                        return `${md(s)}–${en.getDate()}, ${en.getFullYear()}`;
+                    return `${md(s)} – ${md(en)}, ${en.getFullYear()}`;
+                }
+                const day = s.toLocaleDateString('en-US', { weekday: 'short', month: 'long', day: 'numeric' });
+                const yr = s.getFullYear() !== new Date().getFullYear() ? `, ${s.getFullYear()}` : '';
+                return day + yr + (e.time ? ` · ${e.time}` : '');
+            };
+
+            const render = (events) => {
+                const today = new Date(); today.setHours(0, 0, 0, 0);
+                const upcoming = events
+                    .filter(e => e && /^\d{4}-\d{2}-\d{2}$/.test(e.start || ''))
+                    .filter(e => parse(e.end || e.start) >= today)
+                    .sort((a, b) => parse(a.start) - parse(b.start));
+
+                if (!upcoming.length) { showEmpty(); return; }
+
+                grid.innerHTML = upcoming.map(e => {
+                    const isMedia = e.type === 'media';
+                    const tag = isMedia ? '📻 On the Air' : '📖 Meet Don in Person';
+                    const meta = [
+                        e.where ? `<p><strong>Where:</strong> ${esc(e.where)}</p>` : '',
+                        e.who ? `<p><strong>Who:</strong> ${esc(e.who)}</p>` : ''
+                    ].join('');
+                    const cta = (e.link && /^https?:\/\//i.test(e.link))
+                        ? `<a href="${esc(e.link)}" target="_blank" rel="noopener" class="inline-block mt-5 self-start font-sans uppercase tracking-widest bg-veteran-rust text-white px-6 py-3 text-sm font-bold hover:bg-veteran-forest transition duration-300">${isMedia ? 'Tune In' : 'Details'} →</a>`
+                        : '';
+                    return `
+                    <div class="bg-veteran-olive text-veteran-sand shadow-2xl border-b-4 border-veteran-rust p-8 flex flex-col">
+                        <div class="font-sans text-veteran-rust font-bold uppercase tracking-widest text-xs mb-3">${tag}</div>
+                        <h3 class="font-sans text-2xl md:text-3xl font-bold uppercase leading-tight mb-1">${esc(e.title || '')}</h3>
+                        <div class="font-sans text-lg text-veteran-sand opacity-90 mb-5">${esc(dateLine(e))}</div>
+                        <div class="space-y-2 text-base mb-3">${meta}</div>
+                        <p class="text-veteran-sand opacity-90 italic leading-relaxed flex-1">${esc(e.blurb || '')}</p>
+                        ${cta}
+                    </div>`;
+                }).join('');
+            };
+
+            fetch('appearances/api.php', { cache: 'no-store' })
+                .then(r => r.json())
+                .then(d => render(Array.isArray(d.events) ? d.events : []))
+                .catch(showEmpty);
         })();
 
         // 1. Scroll Reveal Animations
